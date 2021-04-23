@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace heist
 {
@@ -51,14 +52,41 @@ namespace heist
       int manifestCount = manifest.CountMembers();
       Console.WriteLine($"Great team. You have {manifestCount} people on the crew");
 
-      // Make a copy of the crew list from the manifest
+      // Make a copy of the crew list from the manifest to use
       List<TeamMember> crewListCopy = manifest.GetCrew();
+
+      /* Stop displaying team member's information in Phase 3
       // Display each team member's information.      
       foreach (TeamMember x in crewListCopy)
       {
         Console.WriteLine($"Welcome aboard {x.Name}");
         Console.WriteLine($"Skill level: {x.SkillLevel} | Courage factor: {x.CourageFactor}");
       }
+      */
+
+      // Create a new bank and store a value for the bank's difficulty level. Set this value to 100.
+      Bank localBranch = new Bank(){ DifficultyLevel = 100};
+
+      // Sum the skill levels of the team. Save that number.
+      // Make a list of just the skill values to add
+      List<int> skillIndex = new List<int>(){};
+      foreach (TeamMember x in crewListCopy)
+      {
+        skillIndex.Add(x.SkillLevel);
+      }
+
+      int teamSkillLevel = skillIndex.Sum();
+      
+      // Compare the number with the bank's difficulty level. If the team's skill level is greater than or equal to the bank's difficulty level, Display a success message, otherwise display a failure message.
+      if (teamSkillLevel >= localBranch.DifficultyLevel)
+      {
+        Console.WriteLine("SUCCESS $$$");
+      }
+      else 
+      {
+        Console.WriteLine("Think really hard about if you want to do this");
+      }
+
     }
   }
 }
